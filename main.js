@@ -19,12 +19,10 @@ const thicc_images = [
   'thicc11.jpg', 'thicc12.jpg', 'thicc13.jpg', 'thicc14.jpg' , 'thicc15.jpg' , 'thicc16.jpg' , 'thicc17.jpg' , 'thicc18.jpg' , 'thicc19.jpg' , 'thicc20.jpg'
 ];
 
-const ines_file = new AttachmentBuilder('./img_storage/unknown.png');
 const img_Ines = new EmbedBuilder()
-    .setImage('attachment://unknown.png')
-    .setColor(0x0099ff)
-    .setTitle('ofc its <@457225264888283137>')
-
+    .setImage('https://img.ifunny.co/images/d40fc844dc12a249c4410f88e1ce782be25f51ac55f50a8a7d8719e271a4f40b_1.jpg')
+    .setColor([71,13,76])
+    
 
 client.on('messageCreate' , (message) => {
     if( !message.content.startsWith(prefix) || message.author.bot ) return
@@ -32,12 +30,13 @@ client.on('messageCreate' , (message) => {
     const args = message.content.slice(prefix.length).split(/ +/)
     const command = args.shift().toLowerCase()
 
-    if ( command === 'hey <@1026610058995441764>') {
+    if ( message.content.includes('hey') && message.content.includes('bot')) {
         message.channel.send('sup bitch!')
     }
 
     if (message.content.includes('most') && message.content.includes('beautiful') ) {
-        message.channel.send({ embeds: [img_Ines] , files: [ines_file]})
+        message.channel.send('ofc its <@457225264888283137>')
+        message.channel.send({ embeds: [img_Ines] })
     }
 
     if ( command === 'peepo') {
