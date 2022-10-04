@@ -16,7 +16,7 @@ const peepo_img = new EmbedBuilder()
 const random = (arr) => arr[Math.floor(Math.random() * arr.length)];
 const thicc_images = [
   'thicc1.jpg', 'thicc2.jpg', 'thicc3.jpg', 'thicc4.jpg', 'thicc5.jpg', 'thicc6.jpg', 'thicc7.jpg', 'thicc8.jpg', 'thicc9.jpg', 'thicc10.jpg',
-  'thicc11.jpg', 'thicc12.jpg', 'thicc13.jpg', 'thicc14.jpg'
+  'thicc11.jpg', 'thicc12.jpg', 'thicc13.jpg', 'thicc14.jpg' , 'thicc15.jpg' , 'thicc16.jpg' , 'thicc17.jpg' , 'thicc18.jpg' , 'thicc19.jpg' , 'thicc20.jpg'
 ];
 // path where the images are
 
