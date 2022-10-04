@@ -1,6 +1,8 @@
 const { Client , GatewayIntentBits , EmbedBuilder , AttachmentBuilder } = require('discord.js')
 const client = new Client({ intents: [GatewayIntentBits.Guilds , GatewayIntentBits.GuildMessages , GatewayIntentBits.MessageContent] })
 
+require('dotenv/config')
+
 const prefix = '!'
 
 client.on('ready' , () => {
@@ -41,4 +43,4 @@ client.on('messageCreate' , (message) => {
 })
 
 
-client.login('MTAyNjYxMDA1ODk5NTQ0MTc2NA.GrH33O.I9UvHKppJyeZ4937Yjhy3y3Fj6fN2tyMtQ84lU')
+client.login(process.env.TOKEN)
