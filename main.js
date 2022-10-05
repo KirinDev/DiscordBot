@@ -19,6 +19,11 @@ const thicc_images = [
   'thicc11.jpg', 'thicc12.jpg', 'thicc13.jpg', 'thicc14.jpg' , 'thicc15.jpg' , 'thicc16.jpg' , 'thicc17.jpg' , 'thicc18.jpg' , 'thicc19.jpg' , 'thicc20.jpg'
 ];
 
+const peepo_images = [
+    'peepo1.jpg' , 'peepo2.jfif' , 'peepo3.jpg' , 'peepo4.jpg' , 'peepo5.jpg' , 'peepo6.jpg' , 'peepo7.jpg' , 'peepo7.png' , 'peepo8.png' , 'peepo9.png' ,
+    'peepo10.jpg' , 'peepo11.png' , 'peepo12.png' , 'peepo13.png' , 'peepo14.png' , 'peepo15.png' , 'peepo16.png' , 'peepo17.jpg' , 'peepo18.png' , 'peepo19.jpg' , 'peepo20.jpg' ,
+]
+
 const img_Ines = new EmbedBuilder()
     .setImage('https://img.ifunny.co/images/d40fc844dc12a249c4410f88e1ce782be25f51ac55f50a8a7d8719e271a4f40b_1.jpg')
     .setColor([71,13,76])
@@ -54,7 +59,13 @@ client.on('messageCreate' , (message) => {
     }
 
     if ( command === 'peepo') {
-        message.channel.send({ embeds: [peepo_img] })
+        const randomImage = random(peepo_images);
+        const file = new AttachmentBuilder(`./img_storage/${randomImage}`);
+        const peepo_img = new EmbedBuilder()
+        .setTitle('Daily Dose of Peepo')
+        .setImage(`attachment://${randomImage}`)
+
+        message.channel.send({ embeds: [peepo_img] , files: [file] })
     }
 
     if(command === 'jamcat') {
