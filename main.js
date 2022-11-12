@@ -20,8 +20,8 @@ const thicc_images = [
 ];
 
 const peepo_images = [
-    'peepo1.jpg' , 'peepo2.jfif' , 'peepo3.jpg' , 'peepo4.jpg' , 'peepo5.jpg' , 'peepo6.jpg' , 'peepo7.jpg' , 'peepo7.png' , 'peepo8.png' , 'peepo9.png' ,
-    'peepo10.jpg' , 'peepo11.png' , 'peepo12.png' , 'peepo13.png' , 'peepo14.png' , 'peepo15.png' , 'peepo16.png' , 'peepo17.jpg' , 'peepo18.png' , 'peepo19.jpg' , 'peepo20.jpg' ,
+    'peepo1.jpg' , 'peepo2.jfif' , 'peepo3.jpeg' , 'peepo4.jpeg' , 'peepo5.jpg' , 'peepo6.jpg' , 'peepo7.jpg' , 'peepo8.png' , 'peepo9.png' ,
+    'peepo10.png' , 'peepo11.jpg' , 'peepo12.png' , 'peepo13.png' , 'peepo14.png' , 'peepo15.png' , 'peepo16.png' , 'peepo17.jpg' , 'peepo18.png' , 'peepo19.jpg' , 'peepo20.jpg' ,
 ]
 
 const img_Ines = new EmbedBuilder()
