@@ -1,5 +1,7 @@
 const { Client , GatewayIntentBits , EmbedBuilder , AttachmentBuilder , ActivityType , Collection , Events } = require('discord.js')
-const client = new Client({ intents: [GatewayIntentBits.Guilds , GatewayIntentBits.GuildMessages , GatewayIntentBits.MessageContent] })
+const client = new Client({ intents: [GatewayIntentBits.Guilds , GatewayIntentBits.GuildMessages , GatewayIntentBits.MessageContent , GatewayIntentBits.GuildVoiceStates] })
+const {  createAudioPlayer, createAudioResource , joinVoiceChannel , VoiceConnectionStatus , 
+    entersState, VoiceConnection , StreamType , demuxProbe , NoSubscriberBehavior, AudioPlayerStatus, AudioPlayer} = require('@discordjs/voice');
 const fs = require('node:fs');
 const path = require('node:path');
 
@@ -28,14 +30,13 @@ const gif_jam = new EmbedBuilder()
 .setImage('https://media3.giphy.com/media/jpbnoe3UIa8TU8LM13/giphy.gif')
 .setColor([71,13,76])
     
-
 client.on('messageCreate' , (message) => {
 
     const args = message.content.slice(prefix.length).split(/ +/)
     const command = args.shift().toLowerCase()
 
     if ( message.content.includes('hey') && message.content.includes('bot')) {
-        message.channel.send('sup bitch!')
+        message.channel.send('sup cutie!')
     }
 
     if (message.content.includes('most') && message.content.includes('beautiful') ) {
@@ -54,6 +55,7 @@ client.on('messageCreate' , (message) => {
         }
     }
 })
+
 
 client.commands = new Collection();
 
@@ -81,11 +83,14 @@ client.on(Events.InteractionCreate, async interaction => {
 	}
 
 	try {
-		await command.execute(interaction);
+        await command.execute(interaction);
+        
 	} catch (error) {
 		console.error(error);
 		await interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
 	}
 });
+
+
 
 client.login(process.env.TOKEN)

@@ -9,7 +9,11 @@
   "author": "KirinDev",
   "license": "ISC",
   "dependencies": {
+    "@discordjs/voice": "^0.13.0",
+    "discord-music-player": "^9.1.1",
     "discord.js": "^14.5.0",
-    "dotenv": "^16.0.3"
+    "discordjs-ytdl": "^2.2.0",
+    "dotenv": "^16.0.3",
+    "play-dl": "^1.9.6"
   }
 }

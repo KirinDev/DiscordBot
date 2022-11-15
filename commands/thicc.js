@@ -10,6 +10,7 @@ module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('thicc')
 		.setDescription('Provides thicc anime girl.'),
+    
 	async execute(interaction) {
 		const randomImage = random(thicc_images);
         const file = new AttachmentBuilder(`./thicc_storage/${randomImage}`);
