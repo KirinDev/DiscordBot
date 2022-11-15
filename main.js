@@ -1,28 +1,19 @@
-const { Client , GatewayIntentBits , EmbedBuilder , AttachmentBuilder } = require('discord.js')
+const { Client , GatewayIntentBits , EmbedBuilder , AttachmentBuilder , ActivityType , Collection , Events } = require('discord.js')
 const client = new Client({ intents: [GatewayIntentBits.Guilds , GatewayIntentBits.GuildMessages , GatewayIntentBits.MessageContent] })
+const fs = require('node:fs');
+const path = require('node:path');
 
 require('dotenv').config();
 
-const prefix = '!'
+const prefix = '/'
 
 client.on('ready' , () => {
-    console.log('Justin_Memer is online! UwU')
+    console.log('Justin_Memer is online! UwU');
+
+    client.user.setActivity("Sussy Amongus >_<" , {
+        type : ActivityType.Playing 
+    });
 });
-
-const peepo_img = new EmbedBuilder()
-.setTitle('Heres your peepo, you faggot!')
-.setImage('https://external-preview.redd.it/zvvCdqBth2ZbbQb4Pu0nL75Gvyu9Mlw0zyEysOSKp5U.jpg?auto=webp&s=47bec5664d01524007ceaaeed85653332642a6d1')
-
-const random = (arr) => arr[Math.floor(Math.random() * arr.length)];
-const thicc_images = [
-  'thicc1.jpg', 'thicc2.jpg', 'thicc3.jpg', 'thicc4.jpg', 'thicc5.jpg', 'thicc6.jpg', 'thicc9.jpg', 'thicc10.jpg',
-  'thicc11.jpg', 'thicc12.jpg', 'thicc13.jpg', 'thicc14.jpg' , 'thicc15.jpg' , 'thicc16.jpg' , 'thicc17.jpg' , 'thicc18.jpg' , 'thicc19.jpg' , 'thicc20.jpg'
-];
-
-const peepo_images = [
-    'peepo1.jpg' , 'peepo2.jfif' , 'peepo3.jpeg' , 'peepo4.jpeg' , 'peepo5.jpg' , 'peepo6.jpg' , 'peepo7.jpg' , 'peepo8.png' , 'peepo9.png' ,
-    'peepo10.png' , 'peepo11.jpg' , 'peepo12.png' , 'peepo13.png' , 'peepo14.png' , 'peepo15.png' , 'peepo16.png' , 'peepo17.jpg' , 'peepo18.png' , 'peepo19.jpg' , 'peepo20.jpg' ,
-]
 
 const img_Ines = new EmbedBuilder()
     .setImage('https://img.ifunny.co/images/d40fc844dc12a249c4410f88e1ce782be25f51ac55f50a8a7d8719e271a4f40b_1.jpg')
@@ -39,7 +30,6 @@ const gif_jam = new EmbedBuilder()
     
 
 client.on('messageCreate' , (message) => {
-    if( !message.content.startsWith(prefix) || message.author.bot ) return
 
     const args = message.content.slice(prefix.length).split(/ +/)
     const command = args.shift().toLowerCase()
@@ -58,32 +48,44 @@ client.on('messageCreate' , (message) => {
         message.channel.send({ embeds: [img_law] })
     }
 
-    if ( command === 'peepo') {
-        const randomImage = random(peepo_images);
-        const file = new AttachmentBuilder(`./img_storage/${randomImage}`);
-        const peepo_img = new EmbedBuilder()
-        .setTitle('Daily Dose of Peepo')
-        .setImage(`attachment://${randomImage}`)
-
-        message.channel.send({ embeds: [peepo_img] , files: [file] })
-    }
-
     if(command === 'jamcat') {
         for (let i = 0; i < 5; i++) {
             message.channel.send({ embeds: [gif_jam] })
         }
     }
-
-    if( command === 'thicc') {
-        const randomImage = random(thicc_images);
-        const file = new AttachmentBuilder(`./thicc_storage/${randomImage}`);
-        const thicc_ani = new EmbedBuilder()
-        .setTitle('Daily Dose of Thicc')
-        .setImage(`attachment://${randomImage}`)
-
-        message.channel.send({ embeds: [thicc_ani] , files: [file] })
-    }
 })
 
+client.commands = new Collection();
+
+const commandsPath = path.join(__dirname, 'commands');
+const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.js'));
+
+for (const file of commandFiles) {
+	const filePath = path.join(commandsPath, file);
+	const command = require(filePath);
+	
+	if ('data' in command && 'execute' in command) {
+		client.commands.set(command.data.name, command);
+	} else {
+		console.log(`[WARNING] The command at ${filePath} is missing a required "data" or "execute" property.`);
+	}
+}
+
+client.on(Events.InteractionCreate, async interaction => {
+	if (!interaction.isChatInputCommand()) return;
+	const command = interaction.client.commands.get(interaction.commandName);
+
+	if (!command) {
+		console.error(`No command matching ${interaction.commandName} was found.`);
+		return;
+	}
+
+	try {
+		await command.execute(interaction);
+	} catch (error) {
+		console.error(error);
+		await interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
+	}
+});
 
 client.login(process.env.TOKEN)
