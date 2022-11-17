@@ -32,9 +32,9 @@ module.exports = {
             }
         })
 
-        player.play(resource)
+        player.play(resource);
 
-        connection.subscribe(player)
+        connection.subscribe(player);
 
         interaction.reply('A wild Botto has spawn...beware!');
 
