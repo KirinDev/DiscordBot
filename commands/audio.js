@@ -48,9 +48,10 @@ module.exports = {
         .addFields(
             { name: 'Title' , value: yt_info.video_details.title },
             { name: 'Channel' , value: yt_info.video_details.channel.name },
-            { name: 'Duration', value: yt_info.video_details.durationRaw },);
+            { name: 'Duration', value: yt_info.video_details.durationRaw },
+            );
 
-        interaction.reply({ embeds : [info_music]});    
+        await interaction.reply({ embeds : [info_music]});    
 
         try {
             await entersState(connection,VoiceConnectionStatus.Ready, 30000);
