@@ -1,7 +1,8 @@
-const { SlashCommandBuilder , ChannelType } = require('discord.js');
+const { SlashCommandBuilder , ChannelType, EmbedBuilder } = require('discord.js');
 const {  createAudioPlayer, createAudioResource , joinVoiceChannel , VoiceConnectionStatus , 
     entersState, VoiceConnection , StreamType , demuxProbe , NoSubscriberBehavior, AudioPlayerStatus, AudioPlayer} = require('@discordjs/voice');
-const play = require('play-dl')
+const play = require('play-dl');
+const { video_basic_info, stream } = require('play-dl');
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -36,7 +37,20 @@ module.exports = {
 
         connection.subscribe(player);
 
-        interaction.reply('A wild Botto has spawn...beware!');
+        let yt_info = await play.video_info(link)
+
+        const info_music =  new EmbedBuilder()
+        .setColor('Blue')
+        .setAuthor(
+            { name: 'DJ Justin Memer' , iconURL: 'https://i.pinimg.com/474x/b6/26/35/b62635fceec24a26c1d0aa6806c6467e.jpg'})
+        .setTitle('NOW PLAYING:')
+        .setImage(yt_info.video_details.thumbnails.at(yt_info.video_details.thumbnails.length - 1).url)
+        .addFields(
+            { name: 'Title' , value: yt_info.video_details.title },
+            { name: 'Channel' , value: yt_info.video_details.channel.name },
+            { name: 'Duration', value: yt_info.video_details.durationRaw },);
+
+        interaction.reply({ embeds : [info_music]});    
 
         try {
             await entersState(connection,VoiceConnectionStatus.Ready, 30000);
