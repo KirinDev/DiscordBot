@@ -21,21 +21,38 @@ module.exports = {
         fetch( url ,  { method: 'GET' , headers: headers }).then( (res) => {
             return res.json()
         }).then( (json)  => {
+
+            try {
+                
+                let index;
+            for (let i = 0; i < json.data.length; i++) {
+             if ( (aniName == json.data[i].attributes.titles.en) || (aniName == json.data[i].attributes.titles.en_jp)
+             || (aniName == json.data[i].attributes.canonicalTitle) || (aniName == json.data[i].attributes.titles.en_us)) {
+                index = i;
+             }  
+            }
+            console.log(index)
             const ani_info = new EmbedBuilder()
             .setColor('Red')
-            .setTitle(json.data[0].attributes.titles.en)
-            .setDescription(json.data[0].attributes.synopsis)
-            .setImage(json.data[0].attributes.posterImage.large)
+            .setTitle(json.data[index].attributes.titles.en)
+            .setDescription(json.data[index].attributes.synopsis)
+            .setImage(json.data[index].attributes.posterImage.large)
             .addFields(
-                { name: 'Type' , value: json.data[0].attributes.subtype , inline: true },
-                { name: 'Aired' , value: json.data[0].attributes.startDate , inline: true },
-                { name: 'Nº Episodes' , value: JSON.stringify(json.data[0].attributes.episodeCount ) , inline: true },
-                { name: 'Status' , value: json.data[0].attributes.status , inline: true },
-                { name: 'Avg Rating' , value: json.data[0].attributes.averageRating , inline: true },
-                { name: 'Rating Rank' , value: JSON.stringify(json.data[0].attributes.ratingRank) , inline: true },
+                { name: 'Type' , value: json.data[index].attributes.subtype , inline: true },
+                { name: 'Aired' , value: json.data[index].attributes.startDate , inline: true },
+                { name: 'Nº Episodes' , value: JSON.stringify(json.data[index].attributes.episodeCount ) , inline: true },
+                { name: 'Status' , value: json.data[index].attributes.status , inline: true },
+                { name: 'Avg Rating' , value: json.data[index].attributes.averageRating , inline: true },
+                { name: 'Rating Rank' , value: JSON.stringify(json.data[index].attributes.ratingRank) , inline: true },
             )
 
             interaction.reply({ embeds: [ani_info]}); 
+
+            } catch(error) {
+                console.error(error);
+                interaction.reply('Error 404 : The name provided is not valid :/')
+            }
+            
         })
 
         

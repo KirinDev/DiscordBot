@@ -42,7 +42,7 @@ module.exports = {
         const info_music =  new EmbedBuilder()
         .setColor('Blue')
         .setAuthor(
-            { name: 'DJ Justin Memer' , iconURL: 'https://i.pinimg.com/474x/b6/26/35/b62635fceec24a26c1d0aa6806c6467e.jpg'})
+            { name: 'DJ Kirin' , iconURL: 'https://i.pinimg.com/474x/b6/26/35/b62635fceec24a26c1d0aa6806c6467e.jpg'})
         .setTitle('NOW PLAYING:')
         .setImage(yt_info.video_details.thumbnails.at(yt_info.video_details.thumbnails.length - 1).url)
         .addFields(
